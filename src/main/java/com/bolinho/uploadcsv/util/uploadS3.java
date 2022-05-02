@@ -1,5 +1,6 @@
 package com.bolinho.uploadcsv.util;
 
+import com.bolinho.uploadcsv.util.ProducerKafka;
 import software.amazon.awssdk.awscore.exception.AwsServiceException;
 import software.amazon.awssdk.core.exception.SdkClientException;
 import software.amazon.awssdk.core.sync.RequestBody;
@@ -20,7 +21,7 @@ public class UploadS3 {
 
     public static void uploadFile(String fileName, InputStream inputStream)
             throws S3Exception, AwsServiceException, SdkClientException, IOException {
-        String objectPath = "/Users/debora.brum/Desktop/test.csv";
+        String objectPath = "~/arquivo.csv";
         String objectKey = fileName;
         S3Client s3 = S3Client.builder()
                 .region(Region.US_EAST_1)
@@ -28,7 +29,7 @@ public class UploadS3 {
         String result = putS3Object(s3, bucketName, objectKey, objectPath);
         System.out.println("Tag information: " + result);
 
-        KafkaService.sendMessage(null, objectKey);
+        ProducerKafka.sendMessage(null, objectKey);
 
         s3.close();
     }
