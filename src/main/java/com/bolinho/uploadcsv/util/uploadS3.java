@@ -27,6 +27,9 @@ public class UploadS3 {
                 .build();
         String result = putS3Object(s3, bucketName, objectKey, objectPath);
         System.out.println("Tag information: " + result);
+
+        KafkaService.sendMessage(null, objectKey);
+
         s3.close();
     }
 
@@ -83,19 +86,4 @@ public class UploadS3 {
         }
         return bytesArray;
     }
-
-    // public static void uploadSimples(String fileName, InputStream inputStream)
-    // throws S3Exception, AwsServiceException, SdkClientException, IOException {
-    // S3Client client = S3Client.builder().build();
-
-    // PutObjectRequest request = PutObjectRequest.builder()
-    // .bucket(bucketName)
-    // .key(fileName)
-    // .acl("public-read")
-    // .build();
-
-    // client.putObject(request,
-    // RequestBody.fromInputStream(inputStream, inputStream.available()));
-    // }
-
 }
