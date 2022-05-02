@@ -1,6 +1,6 @@
 package com.bolinho.uploadcsv;
 
-import com.bolinho.uploadcsv.util.uploadS3;
+import com.bolinho.uploadcsv.util.UploadS3;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,21 +20,21 @@ public class MainController {
     @PostMapping("/upload")
     public String handleUploadForm(Model model, String description, @RequestParam("file") MultipartFile multipart) {
         String fileName = multipart.getOriginalFilename();
-         
+
         System.out.println("Description: " + description);
         System.out.println("filename: " + fileName);
-         
+
         String message = "";
-         
+
         try {
-            uploadS3.uploadFile(fileName, multipart.getInputStream());
+            UploadS3.uploadFile(fileName, multipart.getInputStream());
             message = "Your file has been uploaded successfully!";
         } catch (Exception ex) {
             message = "Error uploading file: " + ex.getMessage();
         }
-         
-        model.addAttribute("mensagem", message);
-         
-        return "mensagem";    
+
+        model.addAttribute("message", message);
+
+        return "mensagem";
     }
 }
