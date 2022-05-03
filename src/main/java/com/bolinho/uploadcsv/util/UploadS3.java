@@ -16,21 +16,24 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
+import com.bolinho.uploadcsv.aws.Credentials;
+
 public class UploadS3 {
     private static final String bucketName = "bucket-grupo8";
 
     public static void uploadFile(String fileName, InputStream inputStream)
             throws S3Exception, AwsServiceException, SdkClientException, IOException, InterruptedException,
             ExecutionException {
-        String objectPath = "~/" + fileName;
+        String objectPath = "/tmp/" + fileName;
         String objectKey = fileName;
         S3Client s3 = S3Client.builder()
+        		.credentialsProvider(Credentials.getCredentials())
                 .region(Region.US_EAST_1)
                 .build();
         String result = putS3Object(s3, bucketName, objectKey, objectPath);
         System.out.println("Tag information: " + result);
 
-        ProducerKafka.sendMessage(null, objectKey);
+//        ProducerKafka.sendMessage(null, objectKey);
 
         s3.close();
     }
