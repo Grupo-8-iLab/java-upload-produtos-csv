@@ -1,6 +1,5 @@
 package com.bolinho.uploadcsv.util;
 
-import com.bolinho.uploadcsv.util.ProducerKafka;
 import software.amazon.awssdk.awscore.exception.AwsServiceException;
 import software.amazon.awssdk.core.exception.SdkClientException;
 import software.amazon.awssdk.core.sync.RequestBody;
@@ -15,13 +14,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 public class UploadS3 {
     private static final String bucketName = "bucket-grupo8";
 
     public static void uploadFile(String fileName, InputStream inputStream)
-            throws S3Exception, AwsServiceException, SdkClientException, IOException {
-        String objectPath = "~/arquivo.csv";
+            throws S3Exception, AwsServiceException, SdkClientException, IOException, InterruptedException,
+            ExecutionException {
+        String objectPath = "~/" + fileName;
         String objectKey = fileName;
         S3Client s3 = S3Client.builder()
                 .region(Region.US_EAST_1)
