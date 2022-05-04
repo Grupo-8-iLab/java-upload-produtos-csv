@@ -9,14 +9,14 @@
 <body>
     <div align="center">
         <div><h2>Spring Boot File Data</h2></div>
-        <div>
-            <form action="" method="" enctype="multipart/form-data">
-                <p>
-                    <h3 th:each="usuario : ${usuarios}" th:text="${usuario}"></h3>
-                </p>
-            </form>
+        <div th:each="produto : ${produtos}" >
+            <h3 th:text="${produto.nome}"></h3>
+            <h3 th:text="${produto.descricao}"></h3>
+            <h3 th:text="${produto.quantidade}"></h3>
+            <h3 th:text="${produto.dataCadastro}"></h3>
         </div>
     </div>
+    <button><a href="/">Voltar</a></button>
 </body>
 
 </html>
