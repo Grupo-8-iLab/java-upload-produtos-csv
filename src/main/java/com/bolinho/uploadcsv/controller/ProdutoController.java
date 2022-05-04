@@ -1,7 +1,5 @@
 package com.bolinho.uploadcsv.controller;
 
-import java.util.List;
-
 import com.bolinho.uploadcsv.dao.ProdutoDAO;
 import com.bolinho.uploadcsv.models.Produto;
 
