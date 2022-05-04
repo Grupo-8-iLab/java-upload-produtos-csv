@@ -1,5 +1,7 @@
 package com.bolinho.uploadcsv.controller;
 
+import java.util.List;
+
 import com.bolinho.uploadcsv.dao.ProdutoDAO;
 import com.bolinho.uploadcsv.models.Produto;
 
@@ -16,5 +18,6 @@ public class ProdutoController {
     @GetMapping("/dados")
     public String getAllData() {
         List<Produto> dados = (List <Produto>) dao.findAll();
+        return null;
     }
 }
