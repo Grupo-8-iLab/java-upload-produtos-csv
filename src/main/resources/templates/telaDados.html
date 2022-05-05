@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Data - Bolinho de Java</title>
+    <link href="./style.css" rel="stylesheet" />
+    <style type="text/css">
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .divCenter {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .divFlexWrap {
+            display: flex;
+            flex-direction: row;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .divBorder {
+            background: #fafafa;
+            border-radius: 20px;
+            margin-bottom: 1.5rem;
+        }
+
+        button {
+            all: unset;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            background-color: rgb(102, 105, 115);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.2s;
+            padding: 6px 10px;
+
+        }
+
+        button:hover {
+            background-color: #292c36;
+            box-shadow: 0px 7px 24px rgba(139, 145, 170, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+    <div align="center">
+        <div>
+            <h2>Saved Data</h2>
+        </div>
+        <div class="divBorder divFlexWrap" th:each="produto : ${produtos}">
+            <div class="divCenter">
+                <h4>Name</h4>
+                <p th:text="${produto.nome}"></p>
+            </div>
+            <div class="divCenter">
+                <h4>Description</h4>
+                <p th:text="${produto.descricao}"></p>
+            </div>
+            <div class="divCenter">
+                <h4>Quantity</h4>
+                <p th:text="${produto.quantidade}"></p>
+            </div>
+            <div class="divCenter">
+                <h4>Date</h4>
+                <p th:text="${produto.dataCadastro}"></p>
+            </div>
+        </div>
+        <button><a style="text-decoration: none;" href="/">Home</a></button>
+    </div>
+</body>
+
+</html>
