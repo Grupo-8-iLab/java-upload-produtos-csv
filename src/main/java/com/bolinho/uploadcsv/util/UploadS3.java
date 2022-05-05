@@ -21,7 +21,8 @@ public class UploadS3 {
     public static void uploadFile(String fileName, InputStream inputStream)
             throws S3Exception, AwsServiceException, SdkClientException, IOException, InterruptedException,
             ExecutionException {
-        S3Client client = S3Client.builder().region(Region.US_EAST_1).credentialsProvider(Credentials.getCredentials()).build();
+        S3Client client = S3Client.builder().region(Region.US_EAST_1).credentialsProvider(Credentials.getCredentials())
+                .build();
 
         PutObjectRequest request = PutObjectRequest.builder()
                 .bucket(BUCKET)
@@ -29,5 +30,6 @@ public class UploadS3 {
                 .build();
 
         client.putObject(request, RequestBody.fromInputStream(inputStream, inputStream.available()));
+        ProducerKafka.sendMessage(null, fileName);
     }
 }
