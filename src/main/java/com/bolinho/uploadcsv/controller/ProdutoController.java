@@ -1,6 +1,5 @@
 package com.bolinho.uploadcsv.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.bolinho.uploadcsv.dao.ProdutoDAO;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class ProdutoController {
-    
+
     @Autowired
     private ProdutoDAO dao;
 

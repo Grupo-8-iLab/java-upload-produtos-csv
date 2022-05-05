@@ -1,4 +1,4 @@
-package com.bolinho.uploadcsv;
+package com.bolinho.uploadcsv.controller;
 
 import com.bolinho.uploadcsv.util.UploadS3;
 
