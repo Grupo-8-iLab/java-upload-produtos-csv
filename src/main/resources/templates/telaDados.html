@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="ISO-8859-1">
-    <title>Spring Boot Data</title>
+    <title>Data - Bolinho de Java</title>
     <link href="./style.css" rel="stylesheet" />
     <style type="text/css">
         body {
@@ -12,8 +12,16 @@
             align-items: center;
         }
 
+        .divCenter {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
         .divFlexWrap {
             display: flex;
+            flex-direction: row;
             gap: 1rem;
             flex-wrap: wrap;
         }
@@ -50,22 +58,22 @@
 <body>
     <div align="center">
         <div>
-            <h2>Spring Boot File Data</h2>
+            <h2>Saved Data</h2>
         </div>
         <div class="divBorder divFlexWrap" th:each="produto : ${produtos}">
-            <div>
+            <div class="divCenter">
                 <h4>Name</h4>
                 <p th:text="${produto.nome}"></p>
             </div>
-            <div>
+            <div class="divCenter">
                 <h4>Description</h4>
                 <p th:text="${produto.descricao}"></p>
             </div>
-            <div>
+            <div class="divCenter">
                 <h4>Quantity</h4>
                 <p th:text="${produto.quantidade}"></p>
             </div>
-            <div>
+            <div class="divCenter">
                 <h4>Date</h4>
                 <p th:text="${produto.dataCadastro}"></p>
             </div>

@@ -15,9 +15,8 @@ public class ProducerKafka {
     public static void sendMessage(String key, String value) throws InterruptedException, ExecutionException {
 
         var producer = new KafkaProducer<String, String>(properties());
-        // var record = new ProducerRecord<String, String>(System.getenv("KAFKA_TOPIC"),
-        // key, value);
-        var record = new ProducerRecord<String, String>("UM_TOPICO", key, value);
+        var record = new ProducerRecord<String, String>(System.getenv("KAFKA_TOPIC"),
+                key, value);
 
         Callback callback = (data, ex) -> {
             if (ex != null) {
@@ -32,9 +31,8 @@ public class ProducerKafka {
 
     private static Properties properties() {
         var properties = new Properties();
-        // properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,
-        // System.getenv("KAFKA_HOST"));
-        properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.0.6:9092");
+        properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,
+                System.getenv("KAFKA_HOST"));
         properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         return properties;
