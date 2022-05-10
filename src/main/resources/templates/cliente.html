@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload - Bolinho de Java</title>
+  </head>
+  <style>
+    body,
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10vh 0;
+    }
+    div {
+      display: flex;
+      flex-direction: column;
+    }
+    form > div, form {
+      gap: 2rem;
+    }
+    input {
+      width: 330px;
+    }
+  </style>
+  <body>
+    <!-- create client -->
+    <form action="/clientes">
+      <div>
+        <div>
+          <span for="nome">Nome</span>
+          <input type="text" name="Nome" id="nome" />
+        </div>
+
+        <div>
+          <span for="email">Email</span>
+          <input type="text" name="Email" id="email" />
+        </div>
+
+        <div>
+          <span for="telefone">Telefone</span>
+          <input type="text" name="Telefone" id="telefone" />
+        </div>
+      </div>
+      <button type="submit">Criar</button>
+    </form>
+  </body>
+</html>
