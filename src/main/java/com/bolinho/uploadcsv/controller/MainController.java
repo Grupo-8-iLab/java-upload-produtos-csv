@@ -14,7 +14,17 @@ public class MainController {
 
     @GetMapping("")
     public String viewHomePage() {
+        return "home";
+    }
+
+    @GetMapping("/telaupload")
+    public String viewUploadPage() {
         return "telaUpload";
+    }
+
+    @GetMapping("/telaclientes")
+    public String viewClientPage() {
+        return "cliente";
     }
 
     @PostMapping("/upload")
