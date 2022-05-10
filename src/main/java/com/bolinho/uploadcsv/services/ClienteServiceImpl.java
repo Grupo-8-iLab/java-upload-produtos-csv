@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ClienteServiceImpl implements IClienteService{
+
     @Autowired
     private ClienteDAO dao;
 

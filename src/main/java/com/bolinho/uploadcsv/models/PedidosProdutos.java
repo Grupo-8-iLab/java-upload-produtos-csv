@@ -2,6 +2,8 @@ package com.bolinho.uploadcsv.models;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "pedidos_produtos")
 public class PedidosProdutos {
@@ -11,6 +13,7 @@ public class PedidosProdutos {
     private Integer id;
     @ManyToOne
 	@JoinColumn(name = "id_pedido")
+    @JsonIgnoreProperties("listaProdutos")
     private Pedido pedido;
     @ManyToOne
 	@JoinColumn(name = "id_produto")

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.bolinho.uploadcsv.dao.PedidoDAO;
 import com.bolinho.uploadcsv.models.Pedido;
+import com.bolinho.uploadcsv.models.PedidosProdutos;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,14 +27,10 @@ public class PedidoServiceImpl implements IPedidoService{
 
     @Override
     public Pedido postOne(Pedido pedido) {
-        //fazer implementação certa aqui
+        for(PedidosProdutos p : pedido.getListaProdutos()){
+            p.setPedido(pedido);
+        }
         return dao.save(pedido);
-    }
-
-    @Override
-    public Pedido editOne(Integer id, Pedido pedido) {
-        // TODO Auto-generated method stub
-        return null;
     }
 
     @Override

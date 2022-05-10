@@ -23,7 +23,7 @@ public class ClienteController {
         List<Cliente> clientes = service.getAll();
 
         model.addAttribute("clientes", clientes);
-        System.out.println(clientes);
+
         return "telaDados";
     }
 

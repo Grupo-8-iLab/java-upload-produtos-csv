@@ -17,12 +17,12 @@ public class Produto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
-    @Column(name = "nome")
+    @Column(name = "nome", nullable = false)
     private String nome;
-    @Column(name = "descricao")
+    @Column(name = "descricao", nullable = false)
     private String descricao;
-    @Column(name = "quantidade")
-    private Integer quantidade;
+    @Column(name = "valor", nullable = false)
+    private Double valor;
     @Column(name = "data_cadastro")
     private Timestamp dataCadastro;
 
@@ -50,12 +50,12 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public Integer getQuantidade() {
-        return quantidade;
+    public Double getValor() {
+        return valor;
     }
 
-    public void setQuantidade(Integer quantidade) {
-        this.quantidade = quantidade;
+    public void setValor(Double valor) {
+        this.valor = valor;
     }
 
     public Timestamp getDataCadastro() {

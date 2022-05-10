@@ -16,8 +16,8 @@ public class ProdutoController {
     @Autowired
     private ProdutoDAO dao;
 
-    @GetMapping("/dados")
-    public String getDados(ModelMap model) {
+    @GetMapping("/produtos")
+    public String getProdutos(ModelMap model) {
         List<Produto> produtos = (List<Produto>) dao.findAll();
 
         model.addAttribute("produtos", produtos);
