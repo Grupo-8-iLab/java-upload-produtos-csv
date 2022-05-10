@@ -1,21 +1,35 @@
 package com.bolinho.uploadcsv.controller;
 
-import com.bolinho.uploadcsv.dao.ClienteDAO;
+import java.util.List;
+
+import com.bolinho.uploadcsv.models.Cliente;
+import com.bolinho.uploadcsv.services.IClienteService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class ClienteController {
+
     @Autowired
-    private ClienteDAO cliDao;
+    private IClienteService service;
 
     @GetMapping("/clientes")
     public String getClientes(ModelMap model) {
-        List<Produto> produtos = (List<Produto>) dao.findAll();
+        List<Cliente> clientes = service.getAll();
 
-        model.addAttribute("produtos", produtos);
-        System.out.println(produtos);
+        model.addAttribute("clientes", clientes);
+        System.out.println(clientes);
         return "telaDados";
+    }
+
+    @PostMapping("/clientes")
+    public String postClient(@RequestBody Cliente cliente) {
+        service.postOne(cliente);
+        return null;
     }
 }
