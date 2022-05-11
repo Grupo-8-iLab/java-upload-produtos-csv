@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class ProdutoController {
@@ -24,4 +25,12 @@ public class ProdutoController {
         System.out.println(produtos);
         return "produtos";
     }
+
+    @GetMapping("/produtosAll")
+    @ResponseBody
+    public List<Produto> getClientesInfo() {
+        List<Produto> produtos = (List<Produto>) dao.findAll();
+        return produtos;
+    }
+
 }

@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class ClienteController {
@@ -24,6 +25,13 @@ public class ClienteController {
         model.addAttribute("clientes", clientes);
 
         return "listarClientes";
+    }
+
+    @GetMapping("/clientesAll")
+    @ResponseBody
+    public List<Cliente> getClientesInfo() {
+        List<Cliente> clientes = service.getAll();
+        return clientes;
     }
 
     @PostMapping("/clientes")

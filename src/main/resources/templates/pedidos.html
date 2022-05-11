@@ -13,9 +13,281 @@
       align-items: center;
       padding: 10vh 0;
     }
+    .div-products {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 500px;
+    }
+    .div-title-products > * {
+      border: 1px solid #000;
+      padding: 0.5rem 0.3rem;
+    }
+    .div-title-products {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+    }
+    .div-total {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+    }
+    .div-total > * {
+      border: 1px solid #000;
+      height: 1rem;
+    }
   </style>
   <body>
     <button><a href="/">Home</a></button>
+
+    <div id="div-client">
+      <h2>Selecione um Cliente</h2>
+      <select id="clients" name="clientes"></select>
+    </div>
+
+    <div class="div-products">
+      <h2>Selecione os produtos</h2>
+      <div class="div-title-products">
+        <h4 style="width: 40%">Produto</h4>
+        <h4 style="width: 40%">Quantidade</h4>
+        <h4 style="width: 20%">Valor</h4>
+      </div>
+      <div
+        id="divs-selects"
+        style="display: flex; flex-direction: column; width: 100%; gap: 0.5rem"
+      ></div>
+      <div class="div-total">
+        <h4 style="width: 80%">Total</h4>
+        <input
+          id="valor-total"
+          style="width: 20%"
+          type="text"
+          disabled
+          value="0 R$"
+        />
+      </div>
+      <button style="margin-top: 0.8rem" id="add-product">
+        Mais um produto
+      </button>
+      <button style="margin: 1rem" id="btnPedido">Fazer Pedido</button>
+    </div>
   </body>
-  <script></script>
+  <script>
+    const select = document.querySelector("#clients");
+    let divsSelects = [];
+    const divSelect = document.querySelector("#divs-selects");
+    const btnAddProduct = document.querySelector("#add-product");
+    const divClient = document.getElementById("div-client");
+
+    let clientes = [];
+    // add clientes to options
+    fetch("/clientesAll")
+      .then((response) => response.json())
+      .then((clientes) => {
+        clientes.forEach((cliente) => {
+          const option = document.createElement("option");
+          option.value = cliente.nome;
+          option.id = cliente.id;
+          option.innerHTML = cliente.nome;
+          select.appendChild(option);
+        });
+      });
+
+    const idsSelect = [];
+    const arrayProdutos = [];
+
+    //creat select products
+    function createSelect(params) {
+      const newSelect = document.createElement("select");
+      newSelect.style.width = "40%";
+      newSelect.name = "produto" + idsSelect.length - 1;
+      newSelect.id = "produto" + idsSelect.length - 1;
+      newSelect.innerHTML = "<option value=''>Selecione um produto</option>";
+      arrayProdutos.forEach((product) => {
+        const option = document.createElement("option");
+        option.id = product.id;
+        option.value = product.id + " - " + product.nome;
+        option.innerHTML = product.id + " - " + product.nome;
+        newSelect.appendChild(option);
+      });
+      return newSelect;
+    }
+
+    //creat input quantity
+    function createInput(params) {
+      const newInput = document.createElement("input");
+      newInput.style.width = "40%";
+      newInput.type = "text";
+      newInput.placeholder = "Quantidade";
+      return newInput;
+    }
+
+    //creat input value
+    function createInputValue(params) {
+      const newInput = document.createElement("input");
+      newInput.style.width = "20%";
+      newInput.classList.add("input-value");
+      newInput.type = "text";
+      newInput.disabled = true;
+      newInput.placeholder = "Valor";
+      return newInput;
+    }
+
+    // add produtos to options
+    fetch("/produtosAll")
+      .then((response) => response.json())
+      .then((produtos) => {
+        arrayProdutos.push(...produtos);
+        const newDiv = document.createElement("div");
+        newDiv.classList.add("div-select");
+        newDiv.style.display = "flex";
+        newDiv.style.flexDirection = "row";
+        newDiv.style.width = "100%";
+        newDiv.appendChild(createSelect());
+        newDiv.appendChild(createInput());
+        newDiv.appendChild(createInputValue());
+        divSelect.appendChild(newDiv);
+
+        // add event to add new select
+        newDiv.addEventListener("change", () => {
+          id = Number(
+            newDiv.children[0].value.substring(
+              0,
+              newDiv.children[0].value.indexOf(" - ")
+            )
+          );
+
+          produtos.map((product) => {
+            if (product.id === id) {
+              newDiv.children[2].value =
+                product.valor * Number(newDiv.children[1].value) + " R$";
+            }
+          });
+
+          const inputsValues = document.getElementsByClassName("input-value");
+          let total = 0;
+          console.log(inputsValues);
+          for (let i = 0; i < inputsValues.length; i++) {
+            total += Number(
+              inputsValues[i].value.substring(
+                0,
+                inputsValues[i].value.indexOf(" R$")
+              )
+            );
+          }
+          document.querySelector("#valor-total").value = total + " R$";
+        });
+      });
+
+    // add event to button
+    btnAddProduct.addEventListener("click", (e) => {
+      const newDiv = document.createElement("div");
+      newDiv.classList.add("div-select");
+      newDiv.style.display = "flex";
+      newDiv.style.flexDirection = "row";
+      newDiv.style.width = "100%";
+      newDiv.appendChild(createSelect());
+      newDiv.appendChild(createInput());
+      newDiv.appendChild(createInputValue());
+      divSelect.appendChild(newDiv);
+
+      // add event to add new select
+      newDiv.addEventListener("change", () => {
+        id = Number(
+          newDiv.children[0].value.substring(
+            0,
+            newDiv.children[0].value.indexOf(" - ")
+          )
+        );
+
+        arrayProdutos.map((product) => {
+          if (product.id === id) {
+            newDiv.children[2].value =
+              product.valor * Number(newDiv.children[1].value) + " R$";
+          }
+        });
+
+        const inputsValues = document.getElementsByClassName("input-value");
+        let total = 0;
+        for (let i = 0; i < inputsValues.length; i++) {
+          total += Number(
+            inputsValues[i].value.substring(0, inputsValues[i].value.length - 2)
+          );
+        }
+        document.querySelector("#valor-total").value = total + " R$";
+      });
+    });
+
+    // creat post to request pedido
+    function createPost(params) {
+      const idCliente = [...select.children].filter((cliente) => {
+        if (cliente.value === divClient.children[1].value) {
+          return cliente;
+        }
+      });
+
+      const post = {
+        valorTotal: 0,
+        data: new Date().toISOString(),
+        cliente: {
+          id: Number(idCliente[0].id),
+        },
+        listaProdutos: [],
+      };
+      const divsSelects = document.getElementsByClassName("div-select");
+      for (let i = 0; i < divsSelects.length; i++) {
+        const select = divsSelects[i].children[0];
+        const input = divsSelects[i].children[1];
+        const inputValue = divsSelects[i].children[2];
+        const id = Number(
+          select.value.substring(0, select.value.indexOf(" - "))
+        );
+        const qtd = Number(input.value);
+        const precoUnit = Number(
+          inputValue.value.substring(0, inputValue.value.indexOf(" R$"))
+        );
+        post.listaProdutos.push({
+          produto: {
+            id: id,
+          },
+          qtdProduto: qtd,
+          precoUnit: precoUnit,
+        });
+        post.valorTotal = Number(
+          document
+            .querySelector("#valor-total")
+            .value.substring(
+              0,
+              document.querySelector("#valor-total").value.indexOf(" R$")
+            )
+        );
+      }
+      console.log(post);
+      return post;
+    }
+
+    // post to request pedido
+    document.getElementById("btnPedido").addEventListener("click", (e) => {
+      createPost();
+      fetch("/pedido", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(createPost()),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.message.includes("sucesso")) {
+            alert("Pedido realizado com sucesso!");
+            window.location.href = "/telapedidos";
+          } else {
+            alert("Erro ao realizar pedido!");
+          }
+        });
+    });
+  </script>
 </html>

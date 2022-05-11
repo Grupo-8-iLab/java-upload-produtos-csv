@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class PedidoController {
@@ -16,10 +17,12 @@ public class PedidoController {
     private IPedidoService service;
 
     @PostMapping("/pedido")
+    @ResponseBody
     public String fazerPedido(@RequestBody Pedido p, Model model) {
         service.postOne(p);
-        // adicionar no elastic search
-        return "mensagem";
+        // response in json
+        String json = "{\"message\":\"Pedido realizado com sucesso!\"}";
+        return json;
     }
 
 }
