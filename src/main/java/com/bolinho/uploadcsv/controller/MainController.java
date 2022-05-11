@@ -27,6 +27,26 @@ public class MainController {
         return "cliente";
     }
 
+    @GetMapping("/telacadastrarclientes")
+    public String viewCreateClientPage() {
+        return "cadastrarCliente";
+    }
+
+    @GetMapping("/telalistarclientes")
+    public String viewGetClientPage() {
+        return "listarClientes";
+    }
+
+    @GetMapping("/telapedidos")
+    public String viewOrderedPage() {
+        return "pedidos";
+    }
+
+    @GetMapping("/telaprodutos")
+    public String viewProductsPage() {
+        return "produtos";
+    }
+
     @PostMapping("/upload")
     public String handleUploadForm(Model model, String description, @RequestParam("file") MultipartFile multipart) {
         String fileName = multipart.getOriginalFilename();

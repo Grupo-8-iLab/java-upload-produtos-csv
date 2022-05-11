@@ -22,6 +22,6 @@ public class ProdutoController {
 
         model.addAttribute("produtos", produtos);
         System.out.println(produtos);
-        return "telaDados";
+        return "produtos";
     }
 }

@@ -21,10 +21,9 @@ public class ClienteController {
     @GetMapping("/clientes")
     public String getClientes(ModelMap model) {
         List<Cliente> clientes = service.getAll();
-
         model.addAttribute("clientes", clientes);
 
-        return "telaDados";
+        return "listarClientes";
     }
 
     @PostMapping("/clientes")
@@ -37,6 +36,6 @@ public class ClienteController {
             e.printStackTrace();
             model.addAttribute("message", "Erro ao salvar cliente: " + e.getMessage());
         }
-        return "cliente";
+        return "cadastrarCliente";
     }
 }

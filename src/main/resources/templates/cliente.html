@@ -27,34 +27,13 @@
     }
   </style>
   <body>
-    <button><a href="/">Home</a></button>
-    <form action="/clientes" method="post">
-      <div>
-        <div>
-          <span for="nome">Nome</span>
-          <input type="text" name="Nome" id="nome" />
-        </div>
-
-        <div>
-          <span for="email">Email</span>
-          <input type="text" name="Email" id="email" />
-        </div>
-
-        <div>
-          <span for="telefone">Telefone</span>
-          <input type="text" name="Telefone" id="telefone" />
-        </div>
-      </div>
-      <button id="btn" type="submit">Create</button>
-    </form>
-    <h3>[[${message}]]</h3>
+    <div style="display: flex; gap: 1rem">
+      <button><a href="/">Home</a></button>
+      <button><a href="/telacadastrarclientes">Cadastrar</a></button>
+      <form action="/clientes" method="get">
+        <button type="submit">Listar Clientes</button>
+      </form>
+    </div>
   </body>
-  <script>
-    const h3 = document.querySelector("h3");
-    if (h3.innerHTML.includes("sucesso")) {
-      setTimeout(() => {
-        h3.style.display = "none";
-      }, 3000);
-    }
-  </script>
+  <script></script>
 </html>

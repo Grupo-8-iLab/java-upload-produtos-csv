@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload - Bolinho de Java</title>
+  </head>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10vh 0;
+      gap: 2rem;
+    }
+    .divCenter {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    .divFlexWrap {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .divBorder {
+      display: flex;
+      flex-direction: row;
+      padding: 0.5rem;
+    }
+    .divBorder > * {
+      width: 20%;
+    }
+    .header-table {
+      display: flex;
+      flex-direction: row;
+      padding: 0.5rem;
+    }
+    .header-table * {
+      display: flex;
+    }
+  </style>
+  <body>
+    <button><a href="/">Home</a></button>
+
+    <div>
+      <button><a href="/produtos">Banco de Dados</a></button>
+      <button>Slastic</button>
+    </div>
+
+    <div
+      align="center"
+      style="width: 500px; border-radius: 20px; background: #fafafa"
+    >
+      <div>
+        <h2 id="title">Saved Data</h2>
+      </div>
+
+      <div class="header-table">
+        <h4 style="width: 20%">Name</h4>
+        <h4 style="width: 40%">Description</h4>
+        <h4 style="width: 40%">Date</h4>
+      </div>
+
+      <div class="divBorder divFlexWrap" th:each="produto : ${produtos}">
+        <div class="divCenter">
+          <p id="nome" th:text="${produto.nome}"></p>
+        </div>
+        <div style="width: 40%" class="divCenter">
+          <p th:text="${produto.descricao}"></p>
+        </div>
+        <div class="divCenter" style="width: 40%">
+          <p class="date" th:text="${produto.dataCadastro}"></p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    const nome = document.getElementById("nome");
+    console.log(nome);
+    if (!nome) {
+      document.querySelector("#title").style.display = "none";
+      document.querySelector(".header-table").style.display = "none";
+    }
+
+    const date = document.getElementsByClassName("date");
+    for (let i = 0; i < date.length; i++) {
+      const dateBr = new Date(date[i].innerHTML).toLocaleString("pt-BR");
+      date[i].innerHTML = dateBr;
+    }
+  </script>
+</html>
