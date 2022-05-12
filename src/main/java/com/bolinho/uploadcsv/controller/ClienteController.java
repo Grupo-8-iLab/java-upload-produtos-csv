@@ -1,6 +1,7 @@
 package com.bolinho.uploadcsv.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import com.bolinho.uploadcsv.models.Cliente;
 import com.bolinho.uploadcsv.services.IClienteService;
@@ -23,13 +24,16 @@ public class ClienteController {
     @GetMapping("/clientes")
     public String getClientes(ModelMap model) {
         RedisService redisService = new RedisService();
-        System.out.println("Ver o que imprime do redis: ");
-        
-        System.out.println(redisService.searchRedis());
+        Set<String> clientesRedis = redisService.read();
 
-        List<Cliente> clientes = service.getAll();
-        model.addAttribute("clientes", clientes);
-
+        if (clientesRedis.isEmpty()) {
+            List<Cliente> clientesBD = service.getAll();
+            redisService.setDataInRedis(clientesBD);
+            model.addAttribute("clientes", clientesBD);
+        } else {
+            List<String> lista = List.copyOf(clientesRedis);
+            model.addAttribute("clientes", redisService.convertList(lista));
+        }
         return "listarClientes";
     }
 
