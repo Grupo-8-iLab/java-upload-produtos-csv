@@ -42,6 +42,16 @@
     .header-table * {
       display: flex;
     }
+    /*includes ... if the text was than width*/
+    p {
+      width: 90%;
+      text-align: start;
+      display: inline-block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      direction: ltr;
+    }
   </style>
   <body>
     <button><a href="/">Home</a></button>
@@ -61,7 +71,8 @@
 
       <div class="header-table">
         <h4 style="width: 20%">Name</h4>
-        <h4 style="width: 40%">Description</h4>
+        <h4 style="width: 20%">Description</h4>
+        <h4 style="width: 20%">Valor</h4>
         <h4 style="width: 40%">Date</h4>
       </div>
 
@@ -69,8 +80,11 @@
         <div class="divCenter">
           <p id="nome" th:text="${produto.nome}"></p>
         </div>
-        <div style="width: 40%" class="divCenter">
+        <div style="width: 20%" class="divCenter">
           <p th:text="${produto.descricao}"></p>
+        </div>
+        <div style="width: 20%" class="divCenter">
+          <p th:text="${produto.valor}"></p>
         </div>
         <div class="divCenter" style="width: 40%">
           <p class="date" th:text="${produto.dataCadastro}"></p>
