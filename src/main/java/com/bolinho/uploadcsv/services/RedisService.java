@@ -7,17 +7,18 @@ import com.bolinho.uploadcsv.models.Cliente;
 import com.google.gson.Gson;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.params.SetParams;
 
-@Service
+@Component
 public class RedisService {
-    private Jedis jedis;
 
     @Autowired
     private IClienteService service;
+
+    private Jedis jedis;
 
     public RedisService() {
         this.jedis = new Jedis("http://localhost:6379");
@@ -42,21 +43,21 @@ public class RedisService {
         return clientes;
     }
 
-    public List<Cliente> setDataInRedis() {
-        List<Cliente> clientes = service.getAll();
+    public List<Cliente> setDataInRedis(List<Cliente> clientes) {
+        // List<Cliente> clientes = service.getAll();
         System.out.println(clientes);
-        // this.writeArray("clientes", clientes);
+        this.writeArray("clientes", clientes);
         return null;
     }
 
-    public List<?> searchRedis() {
-        // busca no redis
-        Set<String> clientesRedis = this.read();
-        if (clientesRedis.isEmpty()) {
-            return this.setDataInRedis();
-        }
-        List<String> lista = List.copyOf(clientesRedis);
-        return lista;
-    }
+    // public List<?> searchRedis() {
+    // // busca no redis
+    // Set<String> clientesRedis = this.read();
+    // if (clientesRedis.isEmpty()) {
+    // return this.setDataInRedis();
+    // }
+    // List<String> lista = List.copyOf(clientesRedis);
+    // return lista;
+    // }
 
 }
