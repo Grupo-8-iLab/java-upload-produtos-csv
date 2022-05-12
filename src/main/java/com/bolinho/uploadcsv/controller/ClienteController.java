@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.bolinho.uploadcsv.models.Cliente;
 import com.bolinho.uploadcsv.services.IClienteService;
+import com.bolinho.uploadcsv.services.RedisService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,11 @@ public class ClienteController {
 
     @GetMapping("/clientes")
     public String getClientes(ModelMap model) {
+        RedisService redisService = new RedisService();
+        System.out.println("Ver o que imprime do redis: ");
+        
+        System.out.println(redisService.searchRedis());
+
         List<Cliente> clientes = service.getAll();
         model.addAttribute("clientes", clientes);
 
