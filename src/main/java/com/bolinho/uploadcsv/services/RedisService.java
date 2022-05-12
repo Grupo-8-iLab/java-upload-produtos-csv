@@ -1,27 +1,33 @@
 package com.bolinho.uploadcsv.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import com.bolinho.uploadcsv.models.Cliente;
 import com.google.gson.Gson;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.params.SetParams;
 
-@Component
+// @Component
 public class RedisService {
 
-    @Autowired
-    private IClienteService service;
+    // @Autowired
+    // private IClienteService service;
 
     private Jedis jedis;
 
     public RedisService() {
         this.jedis = new Jedis("http://localhost:6379");
+    }
+
+    public List<Cliente> convertList(List<String> lista) {
+        List<Cliente> clientes = new ArrayList<Cliente>();
+        for (String s : lista) {
+            clientes.add(new Gson().fromJson(s, new Cliente().getClass()));
+        }
+        return clientes;
     }
 
     public void writeString(String key, String value, long expireInSeconds) {
@@ -43,11 +49,8 @@ public class RedisService {
         return clientes;
     }
 
-    public List<Cliente> setDataInRedis(List<Cliente> clientes) {
-        // List<Cliente> clientes = service.getAll();
-        System.out.println(clientes);
+    public void setDataInRedis(List<Cliente> clientes) {
         this.writeArray("clientes", clientes);
-        return null;
     }
 
     // public List<?> searchRedis() {

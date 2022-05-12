@@ -24,18 +24,16 @@ public class ClienteController {
     @GetMapping("/clientes")
     public String getClientes(ModelMap model) {
         RedisService redisService = new RedisService();
-        System.out.println("Ver o que imprime do redis: ");
-
         Set<String> clientesRedis = redisService.read();
+
         if (clientesRedis.isEmpty()) {
-            redisService.setDataInRedis(service.getAll());
+            List<Cliente> clientesBD = service.getAll();
+            redisService.setDataInRedis(clientesBD);
+            model.addAttribute("clientes", clientesBD);
+        } else {
+            List<String> lista = List.copyOf(clientesRedis);
+            model.addAttribute("clientes", redisService.convertList(lista));
         }
-        List<String> lista = List.copyOf(clientesRedis);
-        System.out.println(lista);
-
-        List<Cliente> clientes = service.getAll();
-        model.addAttribute("clientes", clientes);
-
         return "listarClientes";
     }
 

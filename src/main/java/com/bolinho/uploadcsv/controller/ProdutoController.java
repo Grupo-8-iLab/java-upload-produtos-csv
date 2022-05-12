@@ -1,8 +1,10 @@
 package com.bolinho.uploadcsv.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.bolinho.uploadcsv.dao.ProdutoDAO;
+import com.bolinho.uploadcsv.elasticSearch.RestService;
 import com.bolinho.uploadcsv.models.Produto;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,13 @@ public class ProdutoController {
     public List<Produto> getClientesInfo() {
         List<Produto> produtos = (List<Produto>) dao.findAll();
         return produtos;
+    }
+
+    @GetMapping("/produtosElastic")
+    public String getProdutosElastic(ModelMap model) throws IOException {
+        List<Produto> produtos = RestService.getList();
+        model.addAttribute("produtos", produtos);
+        return "produtos";
     }
 
 }
