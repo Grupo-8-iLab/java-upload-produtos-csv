@@ -19,7 +19,7 @@ public class crawlerElastic {
     @Autowired
     private ProdutoDAO dao;
 
-    @Scheduled(fixedDelay = 20 * timeUnits.MINUTOS)
+    @Scheduled(fixedDelay = 20 * TimeUnits.MINUTOS)
     public void populandoProdutos() throws IOException {
 
         RestService.deleteAll();

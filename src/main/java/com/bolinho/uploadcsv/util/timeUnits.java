@@ -1,6 +1,6 @@
 package com.bolinho.uploadcsv.util;
 
-public class timeUnits {
+public class TimeUnits {
     public static final int SEGUNDOS = 1000;
     public static final int MINUTOS = 60 * SEGUNDOS;
     public static final int HORAS = 60 * MINUTOS;

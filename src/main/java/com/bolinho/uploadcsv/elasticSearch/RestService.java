@@ -24,8 +24,8 @@ public class RestService {
         String jsonFile = new Gson().toJson(p);
 
         HttpEntity entity = new StringEntity(jsonFile);
-        // http://10.:81/elasticsearch/produtos/_doc
-        HttpPost post = new HttpPost("http://localhost:9200/produtos/_doc");
+        // HttpPost post = new HttpPost("http://localhost:9200/produtos/_doc");
+        HttpPost post = new HttpPost(System.getenv("URL_ELASTIC") + "_doc");
         post.setEntity(entity);
         HttpClientBuilder clientBuilder = HttpClientBuilder.create();
         CloseableHttpClient client = clientBuilder.build();
@@ -37,18 +37,20 @@ public class RestService {
 
     public static void deleteAll() throws IOException {
 
-        HttpDelete delete = new HttpDelete("http://localhost:9200/produtos/");
-
+        // HttpDelete delete = new HttpDelete("http://localhost:9200/produtos/");
+        HttpDelete delete = new HttpDelete(System.getenv("URL_ELASTIC"));
         HttpClientBuilder clientBuilder = HttpClientBuilder.create();
         CloseableHttpClient client = clientBuilder.build();
         // post.addHeader("Content-Type", "application/json");
         // post.addHeader("Accept", "text/plain");
         var response = client.execute(delete);
-        System.out.println("Response: " + response);
+        System.out.println("Response Delete : " + response);
     }
 
     public static List<Produto> search(String searchString) throws IOException {
-        HttpGet get = new HttpGet("http://localhost:9200/produtos/_search?q=" + searchString);
+        // HttpGet get = new HttpGet("http://localhost:9200/produtos/_search?q=" +
+        // searchString);
+        HttpGet get = new HttpGet(System.getenv("URL_ELASTIC") + "_search?q=" + searchString);
         HttpClientBuilder clientBuilder = HttpClientBuilder.create();
         CloseableHttpClient client = clientBuilder.build();
         get.addHeader("Content-Type", "application/json");
@@ -73,7 +75,8 @@ public class RestService {
     }
 
     public static List<Produto> getList() throws IOException {
-        HttpGet get = new HttpGet("http://localhost:9200/produtos/_search");
+        // HttpGet get = new HttpGet("http://localhost:9200/produtos/_search");
+        HttpGet get = new HttpGet(System.getenv("URL_ELASTIC") + "_search");
         HttpClientBuilder clientBuilder = HttpClientBuilder.create();
         CloseableHttpClient client = clientBuilder.build();
         get.addHeader("Content-Type", "application/json");

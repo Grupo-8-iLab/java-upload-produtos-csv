@@ -19,7 +19,8 @@ public class RedisService {
     private Jedis jedis;
 
     public RedisService() {
-        this.jedis = new Jedis("http://localhost:6379");
+        // this.jedis = new Jedis("http://localhost:6379");
+        this.jedis = new Jedis(System.getenv("URL_REDIS"));
     }
 
     public List<Cliente> convertList(List<String> lista) {
